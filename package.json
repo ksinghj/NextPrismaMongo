@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "mongo:init": "mongosh \"mongodb+srv://cluster0.mxi67mn.mongodb.net/Cluster0\" --apiVersion 1 --username exampleuser00"
   },
   "dependencies": {
     "next": "12.3.1",
