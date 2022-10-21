@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 
 import styles from '../styles/pages/form.module.scss'
+import { PrismaClient } from '@prisma/client'
 
 const Form: NextPage = () => {
   const [text, setText] = useState('')
+
+  useEffect(() => {
+    // console.log({ res })
+  }, [])
 
   const sendText = () => console.log({ text })
 
@@ -15,6 +20,14 @@ const Form: NextPage = () => {
       <button onClick={sendText}>Submit</button>
     </view>
   )
+}
+
+export async function getServerSideProps() {
+  const prisma = new PrismaClient()
+  const allPeople = await prisma.people.findMany()
+  console.log(allPeople)
+
+  return { props: { allPeople } }
 }
 
 export default Form
