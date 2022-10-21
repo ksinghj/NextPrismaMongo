@@ -22,12 +22,12 @@ const Form: NextPage = () => {
   )
 }
 
-export async function getServerSideProps() {
-  const prisma = new PrismaClient()
-  const allPeople = await prisma.people.findMany()
-  console.log(allPeople)
+// export async function getServerSideProps() {
+//   const prisma = new PrismaClient()
+//   const allPosts = await prisma.post.findMany()
+//   console.log(allPosts)
 
-  return { props: { allPeople } }
-}
+//   return { props: { allPosts } }
+// }
 
 export default Form
