@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { NextPage } from 'next'
-
+import useSWR from 'swr'
 import styles from '../styles/pages/form.module.scss'
-import { PrismaClient } from '@prisma/client'
+import { ResponseData } from './api/get-posts'
 
-const Form: NextPage = () => {
+const fetcher = async (input: RequestInfo, init: RequestInit, ...args: any[]) => {
+  const res = await fetch(input, init)
+  return res.json()
+}
+
+const Form = () => {
+  const { data, error }: { data?: ResponseData; error?: string } = useSWR('/api/get-posts', fetcher)
   const [text, setText] = useState('')
 
   useEffect(() => {
-    // console.log({ res })
-  }, [])
+    console.log(data?.allPosts)
+  }, [data])
 
   const sendText = () => console.log({ text })
 
@@ -21,13 +26,5 @@ const Form: NextPage = () => {
     </view>
   )
 }
-
-// export async function getServerSideProps() {
-//   const prisma = new PrismaClient()
-//   const allPosts = await prisma.post.findMany()
-//   console.log(allPosts)
-
-//   return { props: { allPosts } }
-// }
 
 export default Form
